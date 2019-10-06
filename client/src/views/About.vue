@@ -40,11 +40,11 @@
         key: '',
         test: false,
         code: "// Hàm move nhận đầu vào là thông tin bàn cờ, trả về nước đi tiếp theo\n\
-// Ví dụ về thông tin bàn cờ\n\
+// Ví dụ bàn cờ có vua của bạn (K) và vua đối phương (k)\n\
 // board = [\n//     {piece: \'K\',  position: \'d2\'},\n\
 //     {piece: \'k\',  position: \'e8\'}\n\
 // ]\n\
-function move(board) {\n    return { // Di chuyển vua trắng (K) từ d2 tới d3\n        start: 'd2',\n        stop: 'd3'\n    }\n}"
+function move(board) {\n    return { // Di chuyển vua của bạn (K) từ d2 tới d3\n        start: 'd2',\n        stop: 'd3'\n    }\n}"
       }
     },
 
