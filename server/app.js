@@ -6,6 +6,7 @@ const db = require('./db')
 let app = express()
 app.use(parser.text())
 app.use(cors())
+app.use(express.static('public'))
 
 app.post('/login', function(req, res) {
     let payload = {}
