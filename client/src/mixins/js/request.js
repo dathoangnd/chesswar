@@ -1,7 +1,7 @@
 export default {
     methods: {
         request(path, method, data) {
-            return fetch('http://localhost:3001/' + path, {
+            return fetch('/' + path, {
                 method: method,
                 body: JSON.stringify(data)
             })

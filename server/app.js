@@ -76,6 +76,6 @@ app.post('/save', function(req, res) {
     }
 })
 
-app.listen(3001, function() {
+app.listen(process.env.PORT || 3001, function() {
     console.log("Listening at port 3001")
 })

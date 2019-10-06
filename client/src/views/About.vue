@@ -69,7 +69,9 @@ function move(board) {\n    return { // Di chuyển vua trắng (K) từ d2 tớ
           })
           .then(res => {
             let payload = res
-            that.code = res.code
+            if (res.code.trim() != '') {
+              that.code = res.code
+            }
             delete payload.status
             delete payload.code
             that.setAuthCookie(payload)
