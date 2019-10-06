@@ -5,13 +5,20 @@
       <input v-model.trim="key" placeholder="Mã bí mật">
       <button @click="login">Đăng nhập</button>
     </template>
+    <template v-else-if="test">
+      <ChessBoard player1="Bạn" :player2="$store.state.name" player1Move="" :player2Move="code" :debug="true" />
+      <button @click="test = false">Trở về</button>
+    </template>
     <template v-else>
       <p>Chào mừng {{$store.state.name}}</p>
       <span>Cài đặt thuật toán của nhóm tại đây</span>
 
       <PrismEditor v-model="code" language="js" :lineNumbers="true"></PrismEditor>
 
-      <button @click="save">Lưu</button>
+      <div class="action-btn">
+        <button @click="save">Lưu</button>
+        <button @click="doTest">Đấu thử</button>
+      </div>
     </template>
   </div>
 </template>
@@ -20,21 +27,24 @@
   import PrismEditor from 'vue-prism-editor'
   import request from '@/mixins/js/request.js'
   import auth from '@/mixins/js/auth.js'
+  import ChessBoard from '@/components/ChessBoard'
   export default {
     mixins: [request, auth],
     components: {
-      PrismEditor
+      PrismEditor,
+      ChessBoard
     },
 
     data() {
       return {
         key: '',
+        test: false,
         code: "// Hàm move nhận đầu vào là thông tin bàn cờ, trả về nước đi tiếp theo\n\
 // Ví dụ về thông tin bàn cờ\n\
-// board = [\n//     {piece: \'kw\',  position: \'d2\'},\n\
-//     {piece: \'kb\',  position: \'e8\'}\n\
+// board = [\n//     {piece: \'K\',  position: \'d2\'},\n\
+//     {piece: \'k\',  position: \'e8\'}\n\
 // ]\n\
-function move(board) {\n    return { // Di chuyển vua trắng (kw) từ d2 tới d3\n        start: 'd2',\n        stop: 'd3'\n    }\n}"
+function move(board) {\n    return { // Di chuyển vua trắng (K) từ d2 tới d3\n        start: 'd2',\n        stop: 'd3'\n    }\n}"
       }
     },
 
@@ -92,6 +102,14 @@ function move(board) {\n    return { // Di chuyển vua trắng (kw) từ d2 t�
             console.log(e)
             alert("Đã xảy ra lỗi. Vui lòng thử lại.")
           })
+      },
+      doTest() {
+        try {
+          eval ('window.move2 = ' + this.code)
+          this.test = true;
+        } catch(e) {
+          alert("Chương trình có lỗi cú pháp. Vui lòng kiểm tra lại.")
+        }
       }
     }
   }
@@ -109,11 +127,11 @@ function move(board) {\n    return { // Di chuyển vua trắng (kw) từ d2 t�
     padding: 12px;
     margin: 10px;
     width: 360px;
-  }
+  } 
 
   button {
-    display: block;
-    margin: 12px auto;
+    margin-top: 20px;
+    display: inline-block;
     padding: 12px 16px;
     border-radius: 5px;
     border: none;
@@ -124,6 +142,21 @@ function move(board) {\n    return { // Di chuyển vua trắng (kw) từ d2 t�
       background-color: rgba($primary, 0.8);
     }
   }
+
+  .action-btn {
+    margin-top: 12px;
+    text-align: center;
+      button {
+        &:last-child {
+          background-color: $secondary;
+          margin-left: 12px;
+          &:hover {
+            background-color: rgba($secondary, 0.8);
+          }
+        }
+      }
+  }
+
 </style>
 
 <style lang="scss">
