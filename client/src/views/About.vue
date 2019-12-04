@@ -18,6 +18,7 @@
       <div class="action-btn">
         <button @click="save">Lưu</button>
         <button @click="doTest">Đấu thử</button>
+        <button @click="logout">Đăng xuất</button>
       </div>
     </template>
   </div>
@@ -69,8 +70,15 @@ function move(board) {\n    return { // Di chuyển vua của bạn (K) từ d2 
           })
           .then(res => {
             let payload = res
-            if (res.code.trim() != '') {
+            if (res.code.trim() != '' && res.name != 'Người dùng thử') {
               that.code = res.code
+            } else {
+              that.code = "// Hàm move nhận đầu vào là thông tin bàn cờ, trả về nước đi tiếp theo\n\
+// Ví dụ bàn cờ có vua của bạn (K) và vua đối phương (k)\n\
+// board = [\n//     {piece: \'K\',  position: \'d2\'},\n\
+//     {piece: \'k\',  position: \'e8\'}\n\
+// ]\n\
+function move(board) {\n    return { // Di chuyển vua của bạn (K) từ d2 tới d3\n        start: 'd2',\n        stop: 'd3'\n    }\n}"
             }
             delete payload.status
             delete payload.code
@@ -84,6 +92,16 @@ function move(board) {\n    return { // Di chuyển vua của bạn (K) từ d2 
             console.log(e)
             alert("Đăng nhập thất bại.")
           })
+      },
+      logout() {
+        this.setAuthCookie({
+          name: "",
+          secret: ""
+        })
+        localStorage.code = ''
+        this.$store.commit('changeName', '')
+        this.$store.commit('changeSecret', '')
+        this.$store.commit('changeCode', '')
       },
       save() {
         let that = this
@@ -149,11 +167,17 @@ function move(board) {\n    return { // Di chuyển vua của bạn (K) từ d2 
     margin-top: 12px;
     text-align: center;
       button {
-        &:last-child {
+        &:nth-child(2) {
           background-color: $secondary;
-          margin-left: 12px;
+          margin: 0 12px;
           &:hover {
             background-color: rgba($secondary, 0.8);
+          }
+        }
+        &:nth-child(3) {
+          background-color: $disable;
+          &:hover {
+            background-color: rgba($disable, 0.8);
           }
         }
       }

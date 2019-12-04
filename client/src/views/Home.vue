@@ -1,7 +1,8 @@
 <template>
   <div class="home">
     <img alt="App logo" src="../assets/logo.png">
-    <h1>Chào mừng tới Đấu trường danh vọng</h1>
+    <h3>Chào mừng tới</h3>
+    <h1>Đấu trường danh vọng</h1>
     <button @click="battle">Vào trận</button>
   </div>
 </template>
@@ -30,6 +31,7 @@
     }
     h1 {
       color: $primary;
+      margin-top: 0;
     }
     button {
       margin-top: 12px;

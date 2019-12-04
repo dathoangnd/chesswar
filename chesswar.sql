@@ -25,10 +25,10 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `users`
+-- Cấu trúc bảng cho bảng `heroku_a98559dc874212b.users`
 --
 
-CREATE TABLE `users` (
+CREATE TABLE `heroku_a98559dc874212b.users` (
   `id` int(11) NOT NULL,
   `name` varchar(30) NOT NULL,
   `secret` varchar(50) NOT NULL,
@@ -36,10 +36,10 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Đang đổ dữ liệu cho bảng `users`
+-- Đang đổ dữ liệu cho bảng `heroku_a98559dc874212b.users`
 --
 
-INSERT INTO `users` (`id`, `name`, `secret`, `move`) VALUES
+INSERT INTO `heroku_a98559dc874212b.users` (`id`, `name`, `secret`, `move`) VALUES
 (1, 'Nhóm 2', '203752508709', '\n'),
 (2, 'Nhóm 3', '791684095253', ''),
 (3, 'Nhóm 6', '256856883648', ''),
@@ -54,9 +54,9 @@ INSERT INTO `users` (`id`, `name`, `secret`, `move`) VALUES
 --
 
 --
--- Chỉ mục cho bảng `users`
+-- Chỉ mục cho bảng `heroku_a98559dc874212b.users`
 --
-ALTER TABLE `users`
+ALTER TABLE `heroku_a98559dc874212b.users`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `id` (`id`),
   ADD UNIQUE KEY `name` (`name`),
@@ -67,9 +67,9 @@ ALTER TABLE `users`
 --
 
 --
--- AUTO_INCREMENT cho bảng `users`
+-- AUTO_INCREMENT cho bảng `heroku_a98559dc874212b.users`
 --
-ALTER TABLE `users`
+ALTER TABLE `heroku_a98559dc874212b.users`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 COMMIT;
 

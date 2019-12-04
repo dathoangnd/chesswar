@@ -1,9 +1,9 @@
 module.exports = require('knex')({
     client: 'mysql',
     connection: {
-      host : 'remotemysql.com',
-      user : 'vNfgxs3brK',
-      password : 'FRFDETQXq7',
-      database : 'vNfgxs3brK'
+      host : 'us-cdbr-iron-east-05.cleardb.net',
+      user : 'b250f106e12e2a',
+      password : '91bc6f06',
+      database : 'heroku_a98559dc874212b'
     }
   });
