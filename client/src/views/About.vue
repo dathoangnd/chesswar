@@ -1,7 +1,7 @@
 <template>
   <div class="about">
     <template v-if="$store.state.name == ''">
-      <p>Đăng nhập để tiếp tục</p>
+      <p style="margin-top: 150px;">Đăng nhập để tiếp tục</p>
       <input v-model.trim="key" placeholder="Mã bí mật">
       <button @click="login">Đăng nhập</button>
     </template>
@@ -41,11 +41,12 @@
         key: '',
         test: false,
         code: "// Hàm move nhận đầu vào là thông tin bàn cờ, trả về nước đi tiếp theo\n\
-// Ví dụ bàn cờ có vua của bạn (K) và vua đối phương (k)\n\
-// board = [\n//     {piece: \'K\',  position: \'d2\'},\n\
-//     {piece: \'k\',  position: \'e8\'}\n\
+// Ví dụ bàn cờ có vua trắng và vua đen, bên bạn là phe trắng\n\
+// board = [\n//     {piece: \'k\',  position: \'d2\', color: \'w\'},\n\
+//     {piece: \'k\',  position: \'e8\', color: \'b\'}\n\
 // ]\n\
-function move(board) {\n    return { // Di chuyển vua của bạn (K) từ d2 tới d3\n        start: 'd2',\n        stop: 'd3'\n    }\n}"
+// color = 'w'\n\
+function move(board, color) {\n    // Cài đặt thuật toán của bạn ở đây\n\n    return { // Di chuyển vua của bạn từ d2 tới d3\n        start: 'd2',\n        stop: 'd3'\n    }\n}"
       }
     },
 
@@ -74,11 +75,12 @@ function move(board) {\n    return { // Di chuyển vua của bạn (K) từ d2 
               that.code = res.code
             } else {
               that.code = "// Hàm move nhận đầu vào là thông tin bàn cờ, trả về nước đi tiếp theo\n\
-// Ví dụ bàn cờ có vua của bạn (K) và vua đối phương (k)\n\
-// board = [\n//     {piece: \'K\',  position: \'d2\'},\n\
-//     {piece: \'k\',  position: \'e8\'}\n\
+// Ví dụ bàn cờ có vua trắng và vua đen, bên bạn là phe trắng\n\
+// board = [\n//     {piece: \'k\',  position: \'d2\', color: \'w\'},\n\
+//     {piece: \'k\',  position: \'e8\', color: \'b\'}\n\
 // ]\n\
-function move(board) {\n    return { // Di chuyển vua của bạn (K) từ d2 tới d3\n        start: 'd2',\n        stop: 'd3'\n    }\n}"
+// color = 'w'\n\
+function move(board, color) {\n    // Cài đặt thuật toán của bạn ở đây\n\n    return { // Di chuyển vua của bạn từ d2 tới d3\n        start: 'd2',\n        stop: 'd3'\n    }\n}"
             }
             delete payload.status
             delete payload.code
@@ -125,9 +127,10 @@ function move(board) {\n    return { // Di chuyển vua của bạn (K) từ d2 
       },
       doTest() {
         try {
-          eval ('window.move2 = ' + this.code)
+          eval('window.move2 = ' + this.code)
           this.test = true;
         } catch(e) {
+          console.log(e)
           alert("Chương trình có lỗi cú pháp. Vui lòng kiểm tra lại.")
         }
       }
@@ -141,6 +144,11 @@ function move(board) {\n    return { // Di chuyển vua của bạn (K) từ d2 
     margin-top: 50px;
     font-size: 16px;
     font-weight: bold;
+    color: #E0E0E0;
+  }
+
+  span {
+    color: #BDBDBD;
   }
 
   input {

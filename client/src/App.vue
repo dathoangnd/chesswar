@@ -7,13 +7,13 @@
     </div>
     <router-view/>
   </div>
-  <vue-particles
+  <vue-particles v-if="!$store.state.battle"
     color="#ffd600"
     :particleOpacity="0.7"
     :particlesNumber="80"
     shapeType="circle"
     :particleSize="4"
-    linesColor="#303030"
+    linesColor="#9E9E9E"
     :linesWidth="1"
     :lineLinked="true"
     :lineOpacity="0.4"
@@ -59,9 +59,10 @@
 }
 #nav {
   padding: 30px;
+  color: #e0e0e0;
   a {
+    color: #e0e0e0;
     font-weight: bold;
-    color: #2c3e50;
     text-decoration: none;
     &.router-link-exact-active {
       color: #42b983;

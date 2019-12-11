@@ -7,7 +7,8 @@ export default new Vuex.Store({
   state: {
     name: "",
     secret: "",
-    code: ""
+    code: "",
+    battle: false
   },
   mutations: {
     changeName(state, name) {
@@ -18,6 +19,9 @@ export default new Vuex.Store({
     },
     changeCode(state, code) {
       state.code = code
+    },
+    changeBattle(state, isBattle) {
+      state.battle = isBattle
     }
   },
   actions: {

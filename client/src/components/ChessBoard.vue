@@ -45,47 +45,93 @@
                 if (!that.debug || !that.player1Turn) {
                     if (that.player1Turn) {
                         if (window.move1 != undefined) {
-                            let newMove = window.move1(that.getCurrentBoard('w'))
-                            let fenBk = that.chess.fen()
-                            that.chess.move({
-                                from: newMove.start,
-                                to: newMove.stop
-                            })
-                            if (that.chess.fen() == fenBk) {
-                                // Random move
-                                let moves = that.chess.moves();
-                                let move = moves[Math.floor(Math.random() * moves.length)];
-                                that.chess.move(move);
+                            try {
+                                let newMove = window.move1(that.getCurrentBoard(), 'w')
+                                let fenBk = that.chess.fen()
+                                that.chess.move({
+                                    from: newMove.start,
+                                    to: newMove.stop,
+                                    promotion: 'q'
+                                })
+                                if (that.chess.fen() == fenBk) {
+                                    if (that.debug) {
+                                        alert("Nước đi không hợp lệ. Vui lòng kiểm tra lại.")
+                                        clearInterval(window.gameInterval)
+                                    } else {
+                                        // Random move
+                                        let moves = that.chess.moves();
+                                        let move = moves[Math.floor(Math.random() * moves.length)];
+                                        that.chess.move(move);
+                                    }
+                                }
+                                that.fen = that.chess.fen()
+                            } catch (e) {
+                                console.log(e)
+                                if (that.debug) {
+                                    alert("Đã xảy ra lỗi. Vui lòng kiểm tra lại.")
+                                } else {
+                                    // Random move
+                                    let moves = that.chess.moves();
+                                    let move = moves[Math.floor(Math.random() * moves.length)];
+                                    that.chess.move(move);
+                                    that.fen = that.chess.fen()
+                                }
                             }
-                            that.fen = that.chess.fen()
                         } else{
-                            alert("Đã xảy ra lỗi.")
+                            // Random move
+                            let moves = that.chess.moves();
+                            let move = moves[Math.floor(Math.random() * moves.length)];
+                            that.chess.move(move);
+                            that.fen = that.chess.fen()
                         }
                         if (!that.debug)
                             that.player1Turn = false
                     } else {
                         if (window.move2 != undefined) {
-                            let newMove = window.move2(that.getCurrentBoard('b'))
-                            let fenBk = that.chess.fen()
-                            that.chess.move({
-                                from: newMove.start,
-                                to: newMove.stop
-                            })
-                            if (that.chess.fen() == fenBk) {
-                                // Random move
-                                let moves = that.chess.moves();
-                                let move = moves[Math.floor(Math.random() * moves.length)];
-                                that.chess.move(move);
+                            try {
+                                let newMove = window.move2(that.getCurrentBoard(), 'b')
+                                let fenBk = that.chess.fen()
+                                that.chess.move({
+                                    from: newMove.start,
+                                    to: newMove.stop,
+                                    promotion: 'q'
+                                })
+                                if (that.chess.fen() == fenBk) {
+                                    if (that.debug) {
+                                        alert("Nước đi không hợp lệ. Vui lòng kiểm tra lại.")
+                                        clearInterval(window.gameInterval)
+                                    } else {
+                                        // Random move
+                                        let moves = that.chess.moves();
+                                        let move = moves[Math.floor(Math.random() * moves.length)];
+                                        that.chess.move(move);
+                                    }
+                                }
+                                that.fen = that.chess.fen()
+                            } catch (e) {
+                                console.log(e)
+                                if (that.debug) {
+                                    alert("Đã xảy ra lỗi. Vui lòng kiểm tra lại.")
+                                } else {
+                                    // Random move
+                                    let moves = that.chess.moves();
+                                    let move = moves[Math.floor(Math.random() * moves.length)];
+                                    that.chess.move(move);
+                                    that.fen = that.chess.fen()
+                                }
                             }
-                            that.fen = that.chess.fen()
                         } else{
-                            alert("Đã xảy ra lỗi.")
+                            // Random move
+                            let moves = that.chess.moves();
+                            let move = moves[Math.floor(Math.random() * moves.length)];
+                            that.chess.move(move);
+                            that.fen = that.chess.fen()
                         }
                         
                         that.player1Turn = true
                     }
                 }
-            }, 2000)
+            }, 3000)
         },
         data() {
             return {
@@ -104,15 +150,16 @@
                     this.removeFirst = true;
                 }
             },
-            getCurrentBoard(color) {
+            getCurrentBoard() {
                 let board = []
                 let loop = 'abcdefgh'
                 for (let i = 0; i < loop.length; i++)
                     for (let j = 1; j <= 8; j++)
                         if (this.chess.get(`${loop[i]}${j}`) != null) {
                             board.push({
-                                piece: (color == this.chess.get(`${loop[i]}${j}`).color ? this.chess.get(`${loop[i]}${j}`).type.toUpperCase() : this.chess.get(`${loop[i]}${j}`).type),
-                                position: `${loop[i]}${j}`
+                                piece: this.chess.get(`${loop[i]}${j}`).type,
+                                position: `${loop[i]}${j}`,
+                                color: this.chess.get(`${loop[i]}${j}`).color
                             })
                         }
                 return board
@@ -136,6 +183,12 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
+
+            h3 {
+                color: #e0e0e0;
+                font-size: 16px;
+                text-align: left;
+            }
         }
     }
 </style>

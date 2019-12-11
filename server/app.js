@@ -76,6 +76,44 @@ app.post('/save', function(req, res) {
     }
 })
 
+app.post('/code', async function(req, res) {
+    let payload = {}
+    try {
+        payload = JSON.parse(req.body)
+    } catch(e) {}
+
+    if (payload.teams != undefined && payload.teams != '') {
+        let team1 = payload.teams.split('-')[0]
+        let team2 = payload.teams.split('-')[1]
+        let code1 = ''
+        let code2 = ''
+        db('users').then(function(rows) {
+            for (let i = 0; i < rows.length; i++) {
+                if (rows[i].name == `Nhóm ${team1}`) {
+                    code1 = rows[i].move
+                }
+                if (rows[i].name == `Nhóm ${team2}`) {
+                    code2 = rows[i].move
+                }
+            }
+            
+            res.status(200).json({
+                status: "Success",
+                code1,
+                code2
+            })
+        }).catch(function(e){
+            res.status(500).json({
+                status: "Server error"
+            })
+        })
+    } else {
+        res.status(400).json({
+            status: "Incorect teams"
+        })
+    }
+})
+
 app.listen(process.env.PORT || 3001, function() {
     console.log("Listening at port 3001")
 })
